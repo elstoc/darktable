@@ -478,10 +478,10 @@ static float get_exposure_bias(const struct dt_iop_module_t *self)
   float bias = 0.0f;
 
   // just check that pointers exist and are initialized
-  if(&(self->dev->image_storage) && &(self->dev->image_storage.exif_exposure_bias))
+  if(self->dev && self->dev->image_storage.exif_exposure_bias)
     bias = self->dev->image_storage.exif_exposure_bias;
 
-  // sanity checks because I don't trust exif tags too much
+  // sanity checks, don't trust exif tags too much
   if(!isnan(bias))
     return CLAMP(bias, -5.0f, 5.0f);
   else
